@@ -16,6 +16,12 @@ class CreateSlotsTable extends Migration
         Schema::create('slots', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->date('date');
+            $table->time('time_from');
+            $table->time('time_to');
+            $table->string('room_name');
+            $table->tinyInteger('capacity');
+            $table->decimal('fee', 6, 2);            
         });
     }
 

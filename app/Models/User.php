@@ -16,6 +16,8 @@ class User extends Authenticatable implements Auditable
     use HasApiTokens, HasFactory, Notifiable;
     use \OwenIt\Auditing\Auditable;
 
+    protected $table = 'users';
+
     /**
      * Attributes to exclude from the Audit.
      *

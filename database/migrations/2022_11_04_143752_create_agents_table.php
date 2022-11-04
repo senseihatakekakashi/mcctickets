@@ -16,6 +16,10 @@ class CreateAgentsTable extends Migration
         Schema::create('agents', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('full_name');
+            $table->string('email_address')->nullable(); 
+            $table->string('sex')->nullable(); 
+            $table->string('agent_type')->nullable();             
         });
     }
 
