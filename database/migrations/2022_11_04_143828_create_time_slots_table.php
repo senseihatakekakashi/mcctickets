@@ -16,6 +16,8 @@ class CreateTimeSlotsTable extends Migration
         Schema::create('time_slots', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->time('time_from');
+            $table->time('time_to');
         });
     }
 
