@@ -14,7 +14,8 @@ class AgentController extends Controller
      */
     public function index()
     {
-        //
+        $agents = Agent::all();        
+        return view('file-maintenance.agent.index', ['agents' => $agents]);
     }
 
     /**

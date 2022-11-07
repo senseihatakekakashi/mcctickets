@@ -1,9 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AgentController;
 use App\Http\Controllers\AuditController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RequestNotificationController;
+use App\Http\Controllers\RoomController;
+use App\Http\Controllers\TimeSlotController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserRoleController;
 
@@ -24,6 +27,41 @@ use App\Http\Controllers\UserRoleController;
 
 Auth::routes(['register' => false]);
 // Auth::routes();
+
+
+
+
+// Routes Under Agent
+Route::get('/agent', [AgentController::class, 'index'])->name('agentIndex');
+Route::get('/agent/create', [AgentController::class, 'agentCreate'])->name('agentCreate');
+Route::post('/agent', [AgentController::class, 'agentStore'])->name('agentStore');
+Route::get('/agent/{id}/edit', [AgentController::class, 'agentEdit'])->name('agentEdit');
+Route::post('/agent/{id}/update', [AgentController::class, 'agentUpdate'])->name('agentUpdate');
+Route::post('/agent/{id}/destroy', [AgentController::class, 'agentDestroy'])->name('agentDestroy');
+
+
+
+
+
+// Routes Under Time
+Route::get('/time', [TimeSlotController::class, 'index'])->name('timeIndex');
+Route::get('/time/create', [TimeSlotController::class, 'timeCreate'])->name('timeCreate');
+Route::post('/time', [TimeSlotController::class, 'timeStore'])->name('timeStore');
+Route::get('/time/{id}/edit', [TimeSlotController::class, 'timeEdit'])->name('timeEdit');
+Route::post('/time/{id}/update', [TimeSlotController::class, 'timeUpdate'])->name('timeUpdate');
+Route::post('/time/{id}/destroy', [TimeSlotController::class, 'timeDestroy'])->name('timeDestroy');
+
+
+
+
+
+// Routes Under Room
+Route::get('/room', [RoomController::class, 'index'])->name('roomIndex');
+Route::get('/room/create', [RoomController::class, 'roomCreate'])->name('roomCreate');
+Route::post('/room', [RoomController::class, 'roomStore'])->name('roomStore');
+Route::get('/room/{id}/edit', [RoomController::class, 'roomEdit'])->name('roomEdit');
+Route::post('/room/{id}/update', [RoomController::class, 'roomUpdate'])->name('roomUpdate');
+Route::post('/room/{id}/destroy', [RoomController::class, 'roomDestroy'])->name('roomDestroy');
 
 
 
