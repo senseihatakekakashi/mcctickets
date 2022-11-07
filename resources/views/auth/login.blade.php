@@ -156,7 +156,7 @@
                             <div class="brand-wrapper">
                                 <img src="{{asset('img/logo.png')}}" alt="logo" class="logo">                            
                             </div>
-                                                        
+                            
                             <p class="login-card-description m-0"><i class="fa-solid fa-ticket"></i> Ticketing System</p>
                             <p class="text-muted mb-5">Sign into your account</p>
                             <form method="POST" action="{{ route('login') }}">
