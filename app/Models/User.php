@@ -66,7 +66,11 @@ class User extends Authenticatable implements Auditable
         return $this->hasMany(Audit::class);
     }
 
-    public function eFormPermissionToEnterParticular() {
-        return $this->hasMany(EFormPermissionToEnterParticular::class);
+    public function ticketAllotment() {
+        return $this->hasMany(TicketAllotment::class);
     }
+
+    public function ticketSales() {
+        return $this->hasMany(TicketSales::class);
+    }    
 }

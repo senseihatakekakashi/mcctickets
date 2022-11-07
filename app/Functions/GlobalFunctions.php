@@ -181,7 +181,7 @@
             return '<span>' . $time . '</span>';
     }
 
-    function check_user_access($user_level){
+    function check_user_access($user_level){        
         if(in_array(Auth::user()->user_role, $user_level))
             return true;
         else

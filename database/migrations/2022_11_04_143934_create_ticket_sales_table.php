@@ -16,8 +16,7 @@ class CreateTicketSalesTable extends Migration
         Schema::create('ticket_sales', function (Blueprint $table) {
             $table->id();
             $table->timestamps();            
-            $table->unsignedBigInteger('agent_id');
-            $table->string('full_name');
+            $table->unsignedBigInteger('user_id');            
             $table->unsignedBigInteger('slot_id');
             $table->date('date');
             $table->time('time_from');
@@ -28,9 +27,9 @@ class CreateTicketSalesTable extends Migration
             $table->string('email_address'); 
             $table->string('reference_number'); 
 
-            $table->foreign('agent_id')
+            $table->foreign('user_id')
             ->references('id')
-            ->on('agents')
+            ->on('users')
             ->onDelete('cascade');
 
             $table->foreign('slot_id')

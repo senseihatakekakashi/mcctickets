@@ -35,8 +35,7 @@
                     @if (check_user_access(['Super Admin', 'Admin']))
                         <li>
                             <a><i class="fa-solid fa-file fa-fw mr-2"></i>File Maintenance <span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <li><a href="/agent">Agent</a></li>
+                            <ul class="nav child_menu">                                
                                 <li><a href="/time">Time</a></li>
                                 <li><a href="/room">Room</a></li>
                             </ul>
