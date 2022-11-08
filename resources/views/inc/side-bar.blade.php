@@ -36,7 +36,7 @@
                         <li>
                             <a><i class="fa-solid fa-file fa-fw mr-2"></i>File Maintenance <span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu">                                
-                                <li><a href="/time">Time</a></li>
+                                <li><a href="/time-slot">Time</a></li>
                                 <li><a href="/room">Room</a></li>
                             </ul>
                         </li>
