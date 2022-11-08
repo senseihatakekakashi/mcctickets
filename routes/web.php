@@ -31,12 +31,12 @@ Auth::routes(['register' => false]);
 
 
 // Routes Under Time
-Route::get('/time', [TimeSlotController::class, 'index'])->name('timeIndex');
-Route::get('/time/create', [TimeSlotController::class, 'create'])->name('timeCreate');
-Route::post('/time', [TimeSlotController::class, 'store'])->name('timeStore');
-Route::get('/time/{id}/edit', [TimeSlotController::class, 'edit'])->name('timeEdit');
-Route::post('/time/{id}/update', [TimeSlotController::class, 'update'])->name('timeUpdate');
-Route::post('/time/{id}/destroy', [TimeSlotController::class, 'destroy'])->name('timeDestroy');
+Route::get('/time-slot', [TimeSlotController::class, 'index'])->name('timeSlotIndex');
+Route::get('/time-slot/create', [TimeSlotController::class, 'create'])->name('timeSlotCreate');
+Route::post('/time-slot', [TimeSlotController::class, 'store'])->name('timeSlotStore');
+Route::get('/time-slot/{id}/edit', [TimeSlotController::class, 'edit'])->name('timeSlotEdit');
+Route::post('/time-slot/{id}/update', [TimeSlotController::class, 'update'])->name('timeSlotUpdate');
+Route::post('/time-slot/{id}/destroy', [TimeSlotController::class, 'destroy'])->name('timeSlotDestroy');
 
 
 

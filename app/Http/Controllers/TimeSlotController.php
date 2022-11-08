@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\TimeSlot;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class TimeSlotController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,8 @@ class TimeSlotController extends Controller
      */
     public function index()
     {
-        //
+        $time_slots = TimeSlot::all();        
+        return view('file-maintenance.time-slot.index', ['time_slots' => $time_slots]);
     }
 
     /**
@@ -24,7 +31,7 @@ class TimeSlotController extends Controller
      */
     public function create()
     {
-        //
+        return view('file-maintenance.time-slot.create');
     }
 
     /**
@@ -34,8 +41,12 @@ class TimeSlotController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {                 
+        $time_slot = new TimeSlot();                
+        $time_slot->time_from = $request->input('time_from');
+        $time_slot->time_to = $request->input('time_to');
+        $time_slot->save();
+        return redirect('/time-slot')->with('message', 'Time Slot is Successfully Added!');
     }
 
     /**
@@ -55,9 +66,14 @@ class TimeSlotController extends Controller
      * @param  \App\Models\TimeSlot  $timeSlot
      * @return \Illuminate\Http\Response
      */
-    public function edit(TimeSlot $timeSlot)
+    public function edit($id)
     {
-        //
+        try {                    
+            $time_slot = TimeSlot::find(Crypt::decryptString($id)); 
+            return view('file-maintenance.time-slot.edit', ['time_slot' => $time_slot]);
+        } catch (DecryptException $e) {
+            abort(403);
+        } 
     }
 
     /**
@@ -67,9 +83,13 @@ class TimeSlotController extends Controller
      * @param  \App\Models\TimeSlot  $timeSlot
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TimeSlot $timeSlot)
-    {
-        //
+    public function update(Request $request, $id)
+    {         
+        $time_slot = TimeSlot::find(Crypt::decryptString($id));            
+        $time_slot->time_from = $request->input('time_from');
+        $time_slot->time_to = $request->input('time_to');
+        $time_slot->save();
+        return redirect('/time-slot')->with('message', 'Time Slot is Successfully Updated!');
     }
 
     /**
@@ -78,8 +98,13 @@ class TimeSlotController extends Controller
      * @param  \App\Models\TimeSlot  $timeSlot
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TimeSlot $timeSlot)
+    public function destroy($id)
     {
-        //
+        try  {
+            TimeSlot::find(Crypt::decryptString($id))->delete();                       
+            return redirect('/time-slot')->with('message', 'Time Slot is Successfully Deleted!');
+        } catch (DecryptException $e) {
+            abort(403);
+        } 
     }
 }
