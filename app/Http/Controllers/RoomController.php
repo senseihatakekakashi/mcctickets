@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Room;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class RoomController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,8 @@ class RoomController extends Controller
      */
     public function index()
     {
-        //
+        $rooms = Room::all();        
+        return view('file-maintenance.room.index', ['rooms' => $rooms]);
     }
 
     /**
@@ -24,7 +31,7 @@ class RoomController extends Controller
      */
     public function create()
     {
-        //
+        return view('file-maintenance.room.create');
     }
 
     /**
@@ -35,7 +42,11 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $room = new Room();                
+        $room->room_name = $request->input('room_name');
+        $room->capacity = $request->input('capacity');
+        $room->save();
+        return redirect('/room')->with('message', 'Room Details is Successfully Added!');
     }
 
     /**
@@ -55,9 +66,14 @@ class RoomController extends Controller
      * @param  \App\Models\Room  $room
      * @return \Illuminate\Http\Response
      */
-    public function edit(Room $room)
+    public function edit($id)
     {
-        //
+        try {                    
+            $room = Room::find(Crypt::decryptString($id)); 
+            return view('file-maintenance.room.edit', ['room' => $room]);
+        } catch (DecryptException $e) {
+            abort(403);
+        } 
     }
 
     /**
@@ -67,9 +83,13 @@ class RoomController extends Controller
      * @param  \App\Models\Room  $room
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Room $room)
+    public function update(Request $request, $id)
     {
-        //
+        $room = Room::find(Crypt::decryptString($id));            
+        $room->room_name = $request->input('room_name');
+        $room->capacity = $request->input('capacity');
+        $room->save();
+        return redirect('/room')->with('message', 'Room Details is Successfully Updated!');
     }
 
     /**
@@ -78,8 +98,13 @@ class RoomController extends Controller
      * @param  \App\Models\Room  $room
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Room $room)
+    public function destroy($id)
     {
-        //
+        try  {
+            Room::find(Crypt::decryptString($id))->delete();                       
+            return redirect('/room')->with('message', 'Room Details is Successfully Deleted!');
+        } catch (DecryptException $e) {
+            abort(403);
+        } 
     }
 }
