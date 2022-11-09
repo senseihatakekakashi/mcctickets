@@ -107,4 +107,9 @@ class RoomController extends Controller
             abort(403);
         } 
     }
+
+    public function getAllRoomsData()
+    {        
+        return response()->json(Room::all());     
+    }
 }

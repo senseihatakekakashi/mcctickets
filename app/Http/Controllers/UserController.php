@@ -132,8 +132,10 @@ class UserController extends Controller
     public function destroy($id)
     {
         try  {
-            User::find(Crypt::decryptString($id))->delete();                       
-            return redirect('/system-user')->with('message', 'System User Record is Successfully Deleted!');
+            if(User::find(Crypt::decryptString($id))->ticketAllotment()->count() == 0) {                
+                User::find(Crypt::decryptString($id))->delete();                       
+                return redirect('/system-user')->with('message', 'System User Record is Successfully Deleted!');
+            }                        
         } catch (DecryptException $e) {
             abort(403);
         }              

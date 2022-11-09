@@ -19,8 +19,7 @@ class CreateTicketSalesTable extends Migration
             $table->unsignedBigInteger('user_id');            
             $table->unsignedBigInteger('slot_id');
             $table->date('date');
-            $table->time('time_from');
-            $table->time('time_to');
+            $table->string('time_slot');
             $table->string('room_name');
             $table->tinyInteger('capacity');
             $table->decimal('fee', 6, 2);  
