@@ -17,8 +17,7 @@ class CreateSlotsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->date('date');
-            $table->time('time_from');
-            $table->time('time_to');
+            $table->string('time_slot');            
             $table->string('room_name');
             $table->tinyInteger('capacity');
             $table->decimal('fee', 6, 2);            

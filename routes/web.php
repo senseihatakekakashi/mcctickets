@@ -5,6 +5,7 @@ use App\Http\Controllers\AuditController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RequestNotificationController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\SlotController;
 use App\Http\Controllers\TimeSlotController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserRoleController;
@@ -47,8 +48,22 @@ Route::get('/room', [RoomController::class, 'index'])->name('roomIndex');
 Route::get('/room/create', [RoomController::class, 'create'])->name('roomCreate');
 Route::post('/room', [RoomController::class, 'store'])->name('roomStore');
 Route::get('/room/{id}/edit', [RoomController::class, 'edit'])->name('roomEdit');
-Route::post('/room/{id}/update', [RoomController::class, 'update'])->name('roomUpdate');
-Route::post('/room/{id}/destroy', [RoomController::class, 'destroy'])->name('roomDestroy');
+Route::put('/room/{id}/update', [RoomController::class, 'update'])->name('roomUpdate');
+Route::delete('/room/{id}/destroy', [RoomController::class, 'destroy'])->name('roomDestroy');
+
+Route::get('/get-all-rooms-data', [RoomController::class, 'getAllRoomsData'])->name('getAllRoomsData');
+
+
+
+
+
+// Routes Under Slot
+Route::get('/slot', [SlotController::class, 'index'])->name('slotIndex');
+Route::get('/slot/create', [SlotController::class, 'create'])->name('slotCreate');
+Route::post('/slot', [SlotController::class, 'store'])->name('slotStore');
+Route::get('/slot/{id}/edit', [SlotController::class, 'edit'])->name('slotEdit');
+Route::put('/slot/{id}/update', [SlotController::class, 'update'])->name('slotUpdate');
+Route::delete('/slot/{id}/destroy', [SlotController::class, 'destroy'])->name('slotDestroy');
 
 
 

@@ -46,7 +46,7 @@
                         <li>
                             <a><i class="fa-solid fa-chalkboard-user fa-fw mr-2"></i>Transaction <span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu">
-                                <li><a href="/slots">Slots</a></li>
+                                <li><a href="/slot">Slots</a></li>
                                 <li><a href="/ticket-allotment">Ticket Allotment</a></li>                                
                             </ul>
                         </li>
