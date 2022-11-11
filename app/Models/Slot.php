@@ -13,7 +13,7 @@ class Slot extends Model
 
     public function ticketAllotment() {
         return $this->hasMany(TicketAllotment::class);
-    }
+    }    
 
     public function ticketSales() {
         return $this->hasMany(TicketSales::class);
