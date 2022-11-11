@@ -8,10 +8,10 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>Slot</h3>                   
+                    <h3>Agent</h3>                    
                 </div>
                 <div class="text-right my-5">
-                    <a href="slot/create" class="btn btn-danger"><i class="fa fa-plus"></i> Add a new Slot</a>
+                    <a href="system-user/create" class="btn btn-danger"><i class="fa fa-plus"></i> Add a new Agent</a>
                 </div>                    
             </div>
             <div class="clearfix"></div>
@@ -20,7 +20,7 @@
                 <div class="col-md-12 col-sm-12 ">
                     <div class="x_panel">
                         <div class="x_title">                            
-                            <h2>Slot List</h2>                            
+                            <h2>Agent List</h2>                            
                             <ul class="nav navbar-right panel_toolbox">                                
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -31,7 +31,7 @@
                         <div class="x_content">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    
+
                                     @if (session('message'))                        
                                         <div style="position: fixed; top: 70px; right: 20px; z-index: 99999;">                                        
                                             <div class="toast fade show">
@@ -49,32 +49,25 @@
                                     <div class="card-box table-responsive">
                                         <table id="datatable-fixed-header" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
-                                                <tr>       
-                                                    <th>Date</th>                                             
-                                                    <th>Time</th>
-                                                    <th>Room Name</th>
-                                                    <th>Capacity</th>
-                                                    <th>Fee</th>
+                                                <tr>                                                    
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>User Role</th>
                                                     <th>Options</th>                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>                                                
-                                                @if ($slots)
-                                                    @foreach ($slots as $slot)                                                        
+                                                @if ($users)
+                                                    @foreach ($users as $user)                                                        
                                                         <tr>
-                                                            <td class="p-1 align-middle">{{custom_date_format($slot->date, "F d Y")}}</td>
-                                                            <td class="p-1 align-middle">{{$slot->time_slot}}</td>
-                                                            <td class="p-1 align-middle">{{$slot->room_name}}</td>
-                                                            <td class="p-1 align-middle">{{$slot->capacity}}</td>
-                                                            <td class="p-1 align-middle">{{$slot->fee}}</td>
+                                                            <td class="p-1 align-middle">{{$user->name}}</td>
+                                                            <td class="p-1 align-middle">{{$user->email}}</td>
+                                                            <td class="p-1 align-middle">{{$user->user_role}}</td>
                                                             <td class="p-1 align-middle text-center">    
-                                                                <a href="slot/{{Crypt::encryptString($slot->id)}}/edit" class="btn btn-sm btn-dark"><i class="fa fa-edit"></i> Edit</a> 
-                                                                @if ($slot->ticketAllotment()->count() > 0)
-                                                                    <button type="button" class="btn btn-sm btn-warning" disabled><i class="fa fa-trash"></i> Delete</button>
-                                                                @else    
-                                                                    <button type="button" class="btn btn-sm btn-warning modal-delete-record-trigger" data-toggle="modal" data-target="#modal-delete" data-button='{"id": "{{Crypt::encryptString($slot->id)}}", "date" : "{{custom_date_format($slot->date, "F d, Y")}}", "time_slot" : "{{$slot->time_slot}}", "room_name" : "{{$slot->room_name}}"}' onclick="updateDeleteModalData(this)"><i class="fa fa-trash"></i> Delete</button>                                                                    
-                                                                @endif                                                                
-                                                            </td>
+                                                                <a href="ticket-allotment/{{Crypt::encryptString($user->id)}}/show" class="btn btn-sm btn-info"><i class="fa-solid fa-hand-point-right mr-2"></i> View Assigned Tickets</a>
+                                                                <a href="ticket-allotment/{{Crypt::encryptString($user->id)}}/setup" class="btn btn-sm btn-primary"><i class="fa-solid fa-ticket mr-2"></i> Assign Ticket Slot</a>
+                                                            </td>                                                            
+                                                            <br>
                                                         </tr>
                                                     @endforeach
                                                 @endif                                                
@@ -104,9 +97,7 @@
                     <h4 class="text-danger">Delete Record Confirmation</h4>
                     <p>Are you sure you want to permanently delete this record?</p>
                     <ul>                        
-                        <li><b>Date: </b><span class="modal_date"></span></li>
-                        <li><b>Time Slot: </b><span class="modal_time_slot"></span></li>
-                        <li><b>Room Name: </b><span class="modal_room_name"></span></li>
+                        <li><b>Name: </b><span class="modal-full-name"></span></li>
                     </ul>
                 </div>
                 <div class="modal-footer">
@@ -121,6 +112,61 @@
         </div>
     </div>
 
+    <div class="modal fade" id="modal-deactivate" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">            
+                <div class="modal-header">
+                    <img src="{{asset('img/logo.png')}}" style="height: 40px;">
+                    <h4 class="modal-title pl-2" id="myModalLabel">MCC Admin System</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="text-danger">Deactivate Record Confirmation</h4>
+                    <p>Are you sure you want to deactivate this record?</p>
+                    <ul>                        
+                        <li><b>Name: </b><span class="modal-full-name"></span></li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                    <form action="" method="POST" id="form-confirm-deactivate">
+                        @csrf                        
+                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-user-slash"></i> Confirm Record Deactivation</button>
+                    </form>
+                </div>            
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-reset" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">            
+                <div class="modal-header">
+                    <img src="{{asset('img/logo.png')}}" style="height: 40px;">
+                    <h4 class="modal-title pl-2" id="myModalLabel">MCC Admin System</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="text-danger">Password Reset Confirmation</h4>
+                    <p>Are you sure you want to reset the password of this user?</p>
+                    <ul>                        
+                        <li><b>Name: </b><span class="modal-full-name"></span></li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                    <form action="" method="POST" id="form-confirm-reset">
+                        @csrf                        
+                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-arrows-rotate"></i> Confirm Password Reset</button>
+                    </form>
+                </div>            
+            </div>
+        </div>
+    </div>
     @include('../inc.footer')
 @endsection
 
@@ -162,17 +208,20 @@
         // Custom Made JS for additional functionalities
         function updateDeleteModalData(args) {
             var data = $.parseJSON($(args).attr('data-button'));                                   
-            $(".modal_date").text(data.date);
-            $(".modal_time_slot").text(data.time_slot);
-            $(".modal_room_name").text(data.room_name);
-            $('#form-confirm-delete').attr('action', "slot/" + data.id + "/destroy");            
+            $(".modal-full-name").text(data.full_name);
+            $('#form-confirm-delete').attr('action', "system-user/" + data.id);            
+        }           
+
+        function updateDeactivateModalData(args) {
+            var data = $.parseJSON($(args).attr('data-button'));                                                    
+            $(".modal-full-name").text(data.full_name);   
+            $('#form-confirm-deactivate').attr('action', "system-user/" + data.id + "/deactivate");
         }
 
-        $( document ).ready(function() {            
-            $('#datatable-fixed-header').DataTable( {
-                "bDestroy": true,
-                "order": [[ 0, "desc" ]]
-            } );
-        });
+        function updateResetModalData(args) {
+            var data = $.parseJSON($(args).attr('data-button'));                                                    
+            $(".modal-full-name").text(data.full_name);   
+            $('#form-confirm-reset').attr('action', "system-user/" + data.id + "/reset");
+        }
     </script>
 @endsection

@@ -130,6 +130,10 @@ function init_sidebar() {
         CURRENT_URL = CURRENT_URL.replace('/setup','');
         CURRENT_URL = CURRENT_URL.substring(0, CURRENT_URL.lastIndexOf('/'));
     }    
+    else if(CURRENT_URL.substring(CURRENT_URL.lastIndexOf('/')) == '/show') {
+        CURRENT_URL = CURRENT_URL.replace('/show','');
+        CURRENT_URL = CURRENT_URL.substring(0, CURRENT_URL.lastIndexOf('/'));
+    }    
 
     if(CURRENT_URL.substring(CURRENT_URL.lastIndexOf('/'), CURRENT_URL.lastIndexOf('/') + 3) == '/ey') {        
         CURRENT_URL = CURRENT_URL.substring(0, CURRENT_URL.lastIndexOf('/'));        
@@ -137,11 +141,7 @@ function init_sidebar() {
     
     // For Longer URL ByPass
     var url_lookup = [
-                        'family-background',
-                        'upload-photo',
-                        'upload-signature',
-                        'id-information', 
-                        'generate-id'
+                        
                     ];
     url_lookup.forEach(function (item, index) {                        
         if(CURRENT_URL.substring(CURRENT_URL.lastIndexOf('/')) == '/' + item) {

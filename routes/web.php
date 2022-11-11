@@ -7,6 +7,7 @@ use App\Http\Controllers\RequestNotificationController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SlotController;
 use App\Http\Controllers\TimeSlotController;
+use App\Http\Controllers\TicketAllotmentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserRoleController;
 
@@ -65,6 +66,16 @@ Route::get('/slot/{id}/edit', [SlotController::class, 'edit'])->name('slotEdit')
 Route::put('/slot/{id}/update', [SlotController::class, 'update'])->name('slotUpdate');
 Route::delete('/slot/{id}/destroy', [SlotController::class, 'destroy'])->name('slotDestroy');
 
+
+
+
+
+// Routes Under Ticket Allotment
+Route::get('/ticket-allotment', [TicketAllotmentController::class, 'index'])->name('ticketAllotmentIndex');
+Route::get('/ticket-allotment/{id}/setup', [TicketAllotmentController::class, 'create'])->name('ticketAllotmentSetup');
+Route::post('/ticket-allotment/{id}/setup', [TicketAllotmentController::class, 'store'])->name('ticketAllotmentSetupStore');
+Route::get('/ticket-allotment/{id}/show', [TicketAllotmentController::class, 'show'])->name('ticketAllotmentShow');
+Route::delete('/ticket-allotment/{id}/destroy', [TicketAllotmentController::class, 'destroy'])->name('ticketAllotmentDestroy');
 
 
 
