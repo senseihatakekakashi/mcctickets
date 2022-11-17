@@ -150,7 +150,7 @@
                         <p>Ticket Sale is successfull, below are the details of the sale transaction.</p>
                         <ul>                        
                             <li><b>Reference Number: </b><span>{{session('message')->reference_number}}</span></li>
-                            <li><b>Date: </b><span>{{session('message')->date}}</span></li>
+                            <li><b>Date: </b><span>{{custom_date_format(session('message')->date, "F d Y")}}</span></li>
                             <li><b>Time Slot: </b><span>{{session('message')->time_slot}}</span></li>
                             <li><b>Room Name: </b><span>{{session('message')->room_name}}</span></li>                            
                         </ul>
