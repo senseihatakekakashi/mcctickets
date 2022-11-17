@@ -8,6 +8,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SlotController;
 use App\Http\Controllers\TimeSlotController;
 use App\Http\Controllers\TicketAllotmentController;
+use App\Http\Controllers\TicketSalesController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserRoleController;
 
@@ -76,6 +77,16 @@ Route::get('/ticket-allotment/{id}/setup', [TicketAllotmentController::class, 'c
 Route::post('/ticket-allotment/{id}/setup', [TicketAllotmentController::class, 'store'])->name('ticketAllotmentSetupStore');
 Route::get('/ticket-allotment/{id}/show', [TicketAllotmentController::class, 'show'])->name('ticketAllotmentShow');
 Route::delete('/ticket-allotment/{id}/destroy', [TicketAllotmentController::class, 'destroy'])->name('ticketAllotmentDestroy');
+
+
+
+
+
+// Routes Under Ticket Sales
+Route::get('/ticket-sales', [TicketSalesController::class, 'index'])->name('ticketSalesIndex');
+Route::get('/ticket-sales/{id}/create', [TicketSalesController::class, 'create'])->name('ticketSalesCreate');
+Route::post('/ticket-sales/{id}/create', [TicketSalesController::class, 'store'])->name('ticketSalesStore');
+
 
 
 
