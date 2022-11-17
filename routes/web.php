@@ -7,6 +7,7 @@ use App\Http\Controllers\RequestNotificationController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SlotController;
 use App\Http\Controllers\TimeSlotController;
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\TicketAllotmentController;
 use App\Http\Controllers\TicketSalesController;
 use App\Http\Controllers\UserController;
@@ -87,6 +88,12 @@ Route::get('/ticket-sales', [TicketSalesController::class, 'index'])->name('tick
 Route::get('/ticket-sales/{id}/create', [TicketSalesController::class, 'create'])->name('ticketSalesCreate');
 Route::post('/ticket-sales/{id}/create', [TicketSalesController::class, 'store'])->name('ticketSalesStore');
 
+
+
+
+
+// Routes Under Ticket
+Route::get('/e-ticket/{id}', [TicketController::class, 'show'])->name('ticketShow');
 
 
 
