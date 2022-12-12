@@ -132,7 +132,8 @@
                                                                 <th>Room Name</th>
                                                                 <th>Capacity</th>
                                                                 <th>Fee</th>    
-                                                                <th>Sold Tickets</th>                                                            
+                                                                <th>Sold Tickets</th>  
+                                                                <th>Options</th>                                                          
                                                             </tr>
                                                         </thead>
                                                         <tbody>                                                
@@ -145,6 +146,9 @@
                                                                         <td class="p-1 align-middle">{{$expired_slot->capacity}}</td>
                                                                         <td class="p-1 align-middle">{{$expired_slot->fee}}</td>                                                                        
                                                                         <td class="p-1 align-middle">{{$expired_slot->ticketSales()->count()}}</td>                                                                        
+                                                                        <td class="p-1 d-flex justify-content-center">                                                                                
+                                                                            <a href="/ticket-sales/{{Crypt::encryptString($expired_slot->id)}}/create" class="btn btn-sm btn-info btn-block"><i class="fa-solid fa-eye mr-2"></i></i> View Sold Tickets</a>                                                                             
+                                                                        </td>
                                                                     </tr>
                                                                 @endforeach
                                                             @endif                                                

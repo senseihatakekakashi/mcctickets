@@ -25,7 +25,7 @@
                         <div class="card bg-light mb-3">                                            
                             <div class="card-body">                                                                                                                                                                      
                                 <div class="row">                                    
-                                    <span class="col-12 col-lg-3"><b>Date:</b> {{custom_date_format($slot->date, "F d Y")}}</span>
+                                    <span class="col-12 col-lg-3"><b>Date:</b> {{custom_date_format($slot->date, "F d, Y")}}</span>
                                     <span class="col-12 col-lg-3"><b>Time Slot:</b> {{$slot->time_slot}}</span>
                                     <span class="col-12 col-lg-2"><b>Room Name:</b> {{$slot->room_name}}</span>
                                     <span class="col-12 col-lg-2"><b>Capacity:</b> {{$slot->capacity}}</span>
@@ -36,7 +36,7 @@
                     </div>
                 </div>
 
-                @if ($slot->ticketSales()->count() < $slot->capacity)
+                @if ($slot->ticketSales()->count() < $slot->capacity && date("Y-m-d") <= $slot->date)
                     <div class="col-12 col-sm-12">
                         <div class="x_panel">
                             <div class="x_title">  
@@ -98,7 +98,7 @@
                         </div>
                         <div class="x_content mb-5">
                             <div class="card-box table-responsive">
-                                <table id="datatable-fixed-header" class="table table-striped table-bordered" style="width:100%">
+                                <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
                                     <thead>
                                         <tr>       
                                             <th>Date</th>                                             
@@ -172,6 +172,15 @@
 
 
 @section('css')        
+    <link href="{{asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css')}}" rel="stylesheet">
+
+    <style>
+        #datatable-buttons_length, #datatable-buttons_filter { float: right; margin-left: 20px;}
+    </style>
 @endsection
 
 @section('javaScripts')
@@ -179,6 +188,19 @@
     <script src="{{asset('vendors/validator/multifield.js')}}"></script>
     <script src="{{asset('vendors/validator/validator.js')}}"></script>    
     <script src="{{asset('build/js/countries.js')}}"></script>
+    <!-- Datatables -->
+    <script src="{{asset('vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{asset('vendors/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{asset('vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js')}}"></script>
+    <script src="{{asset('vendors/datatables.net-buttons/js/buttons.flash.min.js')}}"></script>
+    <script src="{{asset('vendors/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
+    <script src="{{asset('vendors/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
+    <script src="{{asset('vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js')}}"></script>
+    <script src="{{asset('vendors/datatables.net-keytable/js/dataTables.keyTable.min.js')}}"></script>
+    <script src="{{asset('vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{asset('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
+    <script src="{{asset('vendors/datatables.net-scroller/js/dataTables.scroller.min.js')}}"></script>
 
     <!-- Javascript functions	-->
     <script>        
