@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Models\User;
 use App\Models\Slot;
 use App\Models\TicketAllotment;
+use App\Notifications\RequestNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
@@ -72,6 +74,13 @@ class TicketAllotmentController extends Controller
             }
             
             TicketAllotment::insert($insert_data);
+
+            $data = [
+                'name' => Auth::user()->name,
+                'message' => 'Alloted Ticket Slots',
+                'link' => '/ticket-sales'
+            ];
+            User::find($user_id)->notify(new RequestNotification($data));
 
             return redirect('/ticket-allotment/' . $id . '/setup')->with('message', 'Ticket(s) Successfully Assigned!');
         } catch (DecryptException $e) {
